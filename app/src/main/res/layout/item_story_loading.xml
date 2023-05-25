@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="15dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/custom_container_story">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:background="@color/colorGrey"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:layout_marginTop="15dp"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:background="@color/colorGrey"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <View
+        android:layout_width="360dp"
+        android:layout_height="25dp"
+        tools:text="@tools:sample/lorem/random"
+        android:background="@color/colorGrey"
+        android:ellipsize="end"
+        android:maxLines="3"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
+
+    <View
+        android:layout_width="100dp"
+        android:layout_height="16dp"
+        android:background="@color/colorGrey"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"/>
+</LinearLayout>

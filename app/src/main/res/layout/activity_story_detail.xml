@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBlueWhite"
+    tools:context=".point.story.detail.StoryDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="@string/content_avatar"
+            android:transitionName="user_avatar"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/bot"/>
+
+        <TextView
+            android:id="@+id/tvStoryUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/const_name_person"
+            android:textColor="@color/colorBlueDark2"
+            android:textSize="18sp"
+            android:transitionName="title"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/thumbnailImgStory"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:src="@color/white"
+        android:transitionName="thumbnail"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+
+    <TextView
+        android:id="@+id/tvDescStory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:transitionName="description"
+        android:layout_marginHorizontal="16dp"/>
+</LinearLayout>

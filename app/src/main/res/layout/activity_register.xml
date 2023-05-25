@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlueWhite"
+    tools:context=".point.registrasi.RegisterActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgGif"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/welcome_gif"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvTitleWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="18dp"
+            android:textColor="@color/colorBlueDark"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/imgGif"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvDescWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc_register"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="18dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitleWelcome"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_name"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlueDark2"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescWelcome"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.nyra.storyapp.point.custom.EditTextDefaultStory
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_background"
+            android:maxLines="1"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvName"/>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_email"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlueDark2"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/editName"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.nyra.storyapp.point.custom.EditTextEmailStory
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_background"
+            android:inputType="textEmailAddress"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmail"/>
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_password"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlueDark2"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/editEmail"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.nyra.storyapp.point.custom.EditTextPasswordStory
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_background"
+            android:inputType="textPassword"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"/>
+
+        <Button
+            android:id="@+id/registerBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/button_register"
+            android:textColor="@color/colorBlueWhite"
+            android:background="@drawable/button"
+            android:backgroundTint="@null"
+            android:translationZ="0dp"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword"/>
+
+        <LinearLayout
+            android:id="@+id/layoutRegisterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/registerBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/tvHaveAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/have_account"/>
+
+            <TextView
+                android:id="@+id/tvLoginNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_here"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlueDark"
+                android:layout_marginStart="5dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/copyrightTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/copyright_app"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@+id/layoutRegisterText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <View
+            android:id="@+id/background_dim"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:elevation="4dp"
+            android:background="@color/colorBlackDim"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="invisible"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
