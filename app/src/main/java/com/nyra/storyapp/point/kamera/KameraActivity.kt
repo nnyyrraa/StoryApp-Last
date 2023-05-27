@@ -49,7 +49,6 @@ class KameraActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //hideSystemUI()
         startKamera()
     }
 

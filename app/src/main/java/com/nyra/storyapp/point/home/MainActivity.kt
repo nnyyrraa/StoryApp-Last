@@ -1,15 +1,20 @@
-package com.nyra.storyapp
+package com.nyra.storyapp.point.home
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import com.nyra.storyapp.R.string
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.nyra.storyapp.R
 import com.nyra.storyapp.data.remot.ApiResponse
 import com.nyra.storyapp.databinding.ActivityMainBinding
+import com.nyra.storyapp.point.maps.MapsActivity
 import com.nyra.storyapp.point.profil.ProfileActivity
 import com.nyra.storyapp.point.story.AdapterStory
 import com.nyra.storyapp.point.story.StoryViewModel
@@ -98,5 +103,23 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         getAllStory("Bearer $token")
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settingMenu -> {
+                startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+            }
+            R.id.mapAction -> {
+                val intent = Intent(this, MapsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

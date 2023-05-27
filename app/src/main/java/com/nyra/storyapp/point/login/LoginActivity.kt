@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.ImageView
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
-import com.nyra.storyapp.MainActivity
+import com.nyra.storyapp.point.home.MainActivity
 import com.nyra.storyapp.R
 import com.nyra.storyapp.R.string
 import com.nyra.storyapp.point.registrasi.RegisterActivity
@@ -16,10 +16,10 @@ import com.nyra.storyapp.data.remot.autentikasi.BodyLogin
 import com.nyra.storyapp.databinding.ActivityLoginBinding
 import com.nyra.storyapp.utils.ManagerSession
 import com.nyra.storyapp.utils.ValConst.KEY_EMAIL
-import com.nyra.storyapp.utils.ValConst.KEY_IS_LOGIN
+import com.nyra.storyapp.utils.ValConst.KEY_LOGIN
 import com.nyra.storyapp.utils.ValConst.KEY_TOKEN
-import com.nyra.storyapp.utils.ValConst.KEY_USER_ID
-import com.nyra.storyapp.utils.ValConst.KEY_USER_NAME
+import com.nyra.storyapp.utils.ValConst.KEY_USERID
+import com.nyra.storyapp.utils.ValConst.KEY_USERNAME
 import com.nyra.storyapp.utils.ext.gone
 import com.nyra.storyapp.utils.ext.show
 import com.nyra.storyapp.utils.ext.showOkDialog
@@ -96,14 +96,15 @@ class LoginActivity : AppCompatActivity() {
                         showLoading(false)
                         val dataUser = response.data.loginResult
                         pref.apply {
-                            preferenceSetString(KEY_USER_ID, dataUser.userId)
+                            preferenceSetString(KEY_USERID, dataUser.userId)
                             preferenceSetString(KEY_TOKEN,dataUser.token)
-                            preferenceSetString(KEY_USER_NAME, dataUser.name)
+                            preferenceSetString(KEY_USERNAME, dataUser.name)
                             preferenceSetString(KEY_EMAIL, email)
-                            preferenceSetBoolean(KEY_IS_LOGIN, true)
+                            preferenceSetBoolean(KEY_LOGIN, true)
                         }
                     } finally {
                         MainActivity.start(this)
+                        finish()
                     }
                 }
                 is ApiResponse.Error -> {
@@ -128,6 +129,5 @@ class LoginActivity : AppCompatActivity() {
 
         if (isLoading) binding.progressBar.show() else binding.progressBar.gone()
         if (isLoading) binding.backgroundDim.show() else binding.backgroundDim.gone()
-
     }
 }

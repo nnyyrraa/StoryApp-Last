@@ -12,7 +12,6 @@ class EditTextEmailStory : AppCompatEditText {
     private fun init() {
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(x0: CharSequence?, x1: Int, x2: Int, x3: Int) {
-                //do nothing
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -24,7 +23,6 @@ class EditTextEmailStory : AppCompatEditText {
             }
 
             override fun afterTextChanged(x0: Editable?) {
-                //do nothing
             }
 
         })

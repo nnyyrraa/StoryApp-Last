@@ -21,4 +21,8 @@ class RepositoryStory @Inject constructor(private val dataSourceStory: DataSourc
     suspend fun addNewStory(token: String, file: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<AddStoryResponse>> {
         return dataSourceStory.addNewStory(token, file, description)
     }
+
+    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
+        return dataSourceStory.getLocationWithStory()
+    }
 }

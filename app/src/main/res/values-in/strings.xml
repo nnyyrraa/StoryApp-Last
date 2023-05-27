@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story App</string>
+
+    <string name="label_user">Hai, %1$s!</string>
+
+    <string name="welcome">Selamat Datang di Bot Story</string>
+
+    //List Story User
+    <string name="content_avatar">Default Avatar Image</string>
+    <string name="content_image_story">User Image Story</string>
+    <string name="const_name_person" translatable="false">Skyla Pajula</string>
+
+    //Detail Story
+    <string name="story_detail">Detail Story</string>
+
+    //Login-Register
+    <string name="error_dialog_title">Maaf, ada kesalahan</string>
+    <string name="error_name_empty">Silahkan isi nama anda!</string>
+    <string name="error_email_empty">Silahkan isi email anda!</string>
+    <string name="error_email_invalid">Email tidak valid!</string>
+    <string name="error_password_empty">Silahkan isi password anda!</string>
+    <string name="error_password_8_character">Password harus lebih dari 8 karakter</string>
+    <string name="desc_welcome">Mau menulis cerita tentang pengalaman belajar di Dicoding ? Yuk, login terlebih dahulu ya !</string>
+    <string name="title_email">Email</string>
+    <string name="title_password">Password</string>
+    <string name="button_login">Masuk</string>
+    <string name="havent_account">Belum punya akun ?</string>
+    <string name="register_here">Daftar sekarang!</string>
+    <string name="copyright_app">© 2023 Tsaniya</string>
+    <string name="incorrect_message">Email atau Password salah</string>
+    <string name="message_unknown_state">Unknown State</string>
+    <string name="desc_register">Lengkapi data dirimu dibawah ini ya!</string>
+    <string name="title_name">Name</string>
+    <string name="button_register">Register</string>
+    <string name="have_account">Sudah punya akun ?</string>
+    <string name="login_here">Sini Masuk</string>
+    <string name="message_success_register">Register berhasil !</string>
+
+    //Add Story
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="desc_hint">Isi Deskripsi Disini...</string>
+    <string name="upload_story">Kirim Story</string>
+    <string name="choose_picture">Pilih Gambar</string>
+    <string name="new_story">Tambah Story Baru</string>
+    <string name="error_empty_desc">Deskripsi tidak boleh kosong</string>
+    <string name="success_upload">Berhasil di upload</string>
+    <string name="info_upload">Info Upload</string>
+    <string name="message">Informasi</string>
+    <string name="image_pick">Pilih Gambar</string>
+    <string name="not_permissions">Tidak mendapatkan izin</string>
+
+    //Profile
+    <string name="username">Username</string>
+    <string name="email">Username@gmail.com</string>
+    <string name="logout">Keluar</string>
+    <string name="profile">Profil</string>
+    <string name="confirm_logout">Yakin anda ingin keluar ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="description">Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi Deskripsi</string>
+
+    //Kamera
+    <string name="failed_picture">Gagal mengambil gambar</string>
+
+    //Setting Menu
+    <string name="setting">Setting</string>
+
+    //Widget
+    <string name="widget_name">STORY APP BANNER</string>
+    <string name="text_empty">Tidak ada Data</string>
+    <string name="app_widget_description">Gambar Widget Story App Banner</string>
+
+    //Maps
+    <string name="title_activity_maps">Maps Activity</string>
+    <string name="maps">Peta</string>
+
+</resources>

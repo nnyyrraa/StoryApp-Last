@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.nyra.storyapp.MainActivity
+import com.nyra.storyapp.point.home.MainActivity
 import com.nyra.storyapp.R
 import com.nyra.storyapp.point.login.LoginActivity
 import com.nyra.storyapp.utils.ManagerSession

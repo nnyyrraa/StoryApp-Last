@@ -45,9 +45,9 @@ class ProfileActivity : AppCompatActivity() {
         dialogAlert.setTitle(getString(string.confirm_logout))?.setPositiveButton(getString(string.logout)) { _, _ ->
             prefs.preferenceClear()
             val intent = Intent(this, LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
-            finish()
+            finishAffinity()
         }?.setNegativeButton(getString(string.cancel), null)
         val alerts = dialogAlert.create()
         alerts.show()

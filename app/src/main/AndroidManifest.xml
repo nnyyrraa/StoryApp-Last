@@ -15,6 +15,42 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAHTFompcsHOpgMgHhTyhSDXqOO7CdYv5o" />
+
+        <activity
+            android:name=".point.maps.MapsActivity"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".widget.WidgetStoryImage"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_story_image_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.ServiceStackWidget"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <activity
             android:name=".point.splashscreen.SplashScreenActivity"
             android:exported="true">
@@ -43,8 +79,8 @@
             android:name=".point.login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
+            android:name=".point.home.MainActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

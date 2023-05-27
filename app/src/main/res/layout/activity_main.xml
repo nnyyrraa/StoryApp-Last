@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBlueWhite"
-    tools:context=".MainActivity">
+    tools:context=".point.home.MainActivity">
 
     <TextView
         android:id="@+id/tvHaloName"
@@ -13,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/label_user"
         android:textSize="22sp"
-        android:textColor="@color/black"
+        android:textColor="@color/colorBlueDark2"
         android:textStyle="bold"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"

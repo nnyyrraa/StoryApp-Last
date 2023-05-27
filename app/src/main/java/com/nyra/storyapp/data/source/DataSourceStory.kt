@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -50,6 +51,19 @@ class DataSourceStory @Inject constructor(
                     emit(ApiResponse.Error(response.message))
                 }
             } catch (ex: Exception) {
+                emit(ApiResponse.Error(ex.message.toString()))
+            }
+        }
+    }
+
+    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
+        return flow {
+            try {
+                emit(ApiResponse.Loading)
+                val response = serviceStory.getLocationWithStory(1)
+                emit(ApiResponse.Success(response))
+            } catch (ex: Exception) {
+                Timber.d("ListStoryViewModel", "getLocationWithStory: ${ex.message.toString()} ")
                 emit(ApiResponse.Error(ex.message.toString()))
             }
         }
