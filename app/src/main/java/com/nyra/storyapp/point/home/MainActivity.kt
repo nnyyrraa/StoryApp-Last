@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     
     private lateinit var pref: ManagerSession
     private var token: String? = null
+
+    private lateinit var adapter: AdapterStory
     
     companion object {
         fun start(context: Context) {
@@ -67,6 +69,9 @@ class MainActivity : AppCompatActivity() {
                     Timber.e(getString(string.message_unknown_state))
                 }
             }
+            binding.rvStory.adapter = adapter.withLoadStateFooter(
+                footer = LoadingStateAdapter { adapter.retry() }
+            )
         }
     }
 

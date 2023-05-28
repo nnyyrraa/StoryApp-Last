@@ -15,14 +15,19 @@ import com.nyra.storyapp.R
 import com.nyra.storyapp.data.model.DetailStory
 import com.nyra.storyapp.data.remot.ApiResponse
 import com.nyra.storyapp.databinding.ActivityMapsBinding
+import com.nyra.storyapp.utils.ManagerSession
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+@AndroidEntryPoint
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    private val viewModelMap: MapViewModel by viewModels()
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
-    private val viewModelMap: MapViewModel by viewModels()
+    private lateinit var pref: ManagerSession
+    private var token: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +47,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        viewModelMap.getLocationWithStory().observe(this) { response ->
+        pref = ManagerSession(this)
+        token = pref.getToken
+
+        getLocationWithStory("Bearer $token")
+    }
+
+    private fun getLocationWithStory(token: String) {
+        viewModelMap.getLocationWithStory(token).observe(this) { response ->
             if (response != null) {
                 when (response) {
+                    is ApiResponse.Loading -> {
+
+                    }
                     is ApiResponse.Success -> {
                         manyMarkerAdd(response.data.listStory)
-                    }
-                    is ApiResponse.Loading -> {
-//                        showLoading
                     }
                     is ApiResponse.Error -> {
                         Toast.makeText(this, response.errorMessage, Toast.LENGTH_LONG).show()

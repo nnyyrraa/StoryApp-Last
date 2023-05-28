@@ -20,6 +20,7 @@ interface ServiceStory {
 
     @GET("stories")
     suspend fun getLocationWithStory(
+        @Header("Authorization") token: String,
         @Query("location") location: Int,
     ) : GetStoryResponse
 }

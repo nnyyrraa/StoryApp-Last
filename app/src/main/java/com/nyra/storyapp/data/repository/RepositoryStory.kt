@@ -1,5 +1,7 @@
 package com.nyra.storyapp.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import com.nyra.storyapp.data.remot.ApiResponse
 import com.nyra.storyapp.data.remot.story.AddStoryResponse
 import com.nyra.storyapp.data.remot.story.GetStoryResponse
@@ -22,7 +24,7 @@ class RepositoryStory @Inject constructor(private val dataSourceStory: DataSourc
         return dataSourceStory.addNewStory(token, file, description)
     }
 
-    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
-        return dataSourceStory.getLocationWithStory()
+    suspend fun getLocationWithStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
+        return dataSourceStory.getLocationWithStory(token)
     }
 }

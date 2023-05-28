@@ -73,4 +73,8 @@
     //Maps
     <string name="title_activity_maps">Maps Activity</string>
     <string name="maps">Maps</string>
+
+    //LoadingPaging3
+    <string name="data_notLoaded">Data not loaded</string>
+    <string name="retry">Retry</string>
 </resources>

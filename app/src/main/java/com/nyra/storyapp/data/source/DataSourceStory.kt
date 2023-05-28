@@ -1,5 +1,6 @@
 package com.nyra.storyapp.data.source
 
+import android.util.Log
 import com.nyra.storyapp.data.lokal.dao.DaoStory
 import com.nyra.storyapp.data.mapper.storyToEntityStory
 import com.nyra.storyapp.data.remot.ApiResponse
@@ -56,14 +57,14 @@ class DataSourceStory @Inject constructor(
         }
     }
 
-    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
+    suspend fun getLocationWithStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
         return flow {
             try {
                 emit(ApiResponse.Loading)
-                val response = serviceStory.getLocationWithStory(1)
+                val response = serviceStory.getLocationWithStory(token, 1)
                 emit(ApiResponse.Success(response))
             } catch (ex: Exception) {
-                Timber.d("ListStoryViewModel", "getLocationWithStory: ${ex.message.toString()} ")
+                Log.d("StoryViewModel", "getLocationWithStory: ${ex.message.toString()} ")
                 emit(ApiResponse.Error(ex.message.toString()))
             }
         }

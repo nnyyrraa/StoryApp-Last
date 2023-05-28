@@ -15,7 +15,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StoryApp">
-
+        <activity
+            android:name=".CardStoriesLoading"
+            android:exported="false" />
+        <activity
+            android:name=".card_stories_loading"
+            android:exported="false" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -33,7 +38,7 @@
 
         <activity
             android:name=".point.maps.MapsActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <receiver
             android:name=".widget.WidgetStoryImage"

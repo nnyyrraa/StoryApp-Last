@@ -1,11 +1,14 @@
 package com.nyra.storyapp.point.story
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.nyra.storyapp.point.story.detail.StoryDetailActivity
 import com.nyra.storyapp.data.model.DetailStory
@@ -14,25 +17,34 @@ import com.nyra.storyapp.utils.ValConst
 import com.nyra.storyapp.utils.ext.setImageUrl
 import com.nyra.storyapp.utils.ext.timeStamptoString
 
-class AdapterStory(private val listStory: List<DetailStory>): RecyclerView.Adapter<AdapterStory.StoryViewHolder>() {
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AdapterStory.StoryViewHolder {
+class AdapterStory(private val listStory: List<DetailStory>): PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder>(DiffCallback) {
+    companion object {
+        val DiffCallback = object : DiffUtil.ItemCallback<DetailStory>() {
+            override fun areItemsTheSame(oldItem: DetailStory, newItem: DetailStory): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: DetailStory, newItem: DetailStory): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterStory.StoryViewHolder {
         val binding = ItemStoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StoryViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: AdapterStory.StoryViewHolder, position: Int) {
         listStory[position].let { story ->
-            holder.bind(story)
+            holder.bind(holder.itemView.context, story)
         }
     }
 
     override fun getItemCount(): Int = listStory.size
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(stories: DetailStory) {
+        fun bind(context: Context, stories: DetailStory) {
             with(binding) {
                 nameStory.text = stories.name
                 tvDescStory.text = stories.description
