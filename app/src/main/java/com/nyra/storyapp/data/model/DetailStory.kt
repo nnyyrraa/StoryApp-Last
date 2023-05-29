@@ -1,10 +1,12 @@
 package com.nyra.storyapp.data.model
 
 import android.os.Parcelable
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "list_story")
 data class DetailStory(
     @SerializedName("id")
     val id: String,

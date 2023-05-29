@@ -53,6 +53,11 @@ class MainActivity : AppCompatActivity() {
         uiInit()
         
         getAllStory("Bearer $token")
+
+        /*val adapter = AdapterStory()
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { adapter.retry() }
+        )*/
     }
 
     private fun getAllStory(token: String) {
@@ -61,17 +66,18 @@ class MainActivity : AppCompatActivity() {
                 is ApiResponse.Loading -> isLoading(true)
                 is ApiResponse.Success -> {
                     isLoading(false)
-                    val adapter = AdapterStory(response.data.listStory)
-                    binding.rvStory.adapter = adapter
+                    val adapter = AdapterStory()
+                    //binding.rvStory.adapter = adapter
+                    binding.rvStory.adapter = adapter.withLoadStateFooter(
+                        footer = LoadingStateAdapter { adapter.retry() }
+                    )
                 }
                 is ApiResponse.Error -> isLoading(false)
                 else -> {
                     Timber.e(getString(string.message_unknown_state))
                 }
             }
-            binding.rvStory.adapter = adapter.withLoadStateFooter(
-                footer = LoadingStateAdapter { adapter.retry() }
-            )
+
         }
     }
 

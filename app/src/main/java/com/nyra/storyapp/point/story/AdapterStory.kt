@@ -17,7 +17,9 @@ import com.nyra.storyapp.utils.ValConst
 import com.nyra.storyapp.utils.ext.setImageUrl
 import com.nyra.storyapp.utils.ext.timeStamptoString
 
-class AdapterStory(private val listStory: List<DetailStory>): PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder>(DiffCallback) {
+class AdapterStory : PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder>(DiffCallback) {
+    private lateinit var listStory: DetailStory
+
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<DetailStory>() {
             override fun areItemsTheSame(oldItem: DetailStory, newItem: DetailStory): Boolean {
@@ -36,12 +38,10 @@ class AdapterStory(private val listStory: List<DetailStory>): PagingDataAdapter<
     }
 
     override fun onBindViewHolder(holder: AdapterStory.StoryViewHolder, position: Int) {
-        listStory[position].let { story ->
+        listStory.let { story ->
             holder.bind(holder.itemView.context, story)
         }
     }
-
-    override fun getItemCount(): Int = listStory.size
 
     inner class StoryViewHolder(private val binding: ItemStoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(context: Context, stories: DetailStory) {

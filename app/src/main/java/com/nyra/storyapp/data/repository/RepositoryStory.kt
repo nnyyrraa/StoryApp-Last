@@ -1,7 +1,5 @@
 package com.nyra.storyapp.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.nyra.storyapp.data.remot.ApiResponse
 import com.nyra.storyapp.data.remot.story.AddStoryResponse
 import com.nyra.storyapp.data.remot.story.GetStoryResponse
