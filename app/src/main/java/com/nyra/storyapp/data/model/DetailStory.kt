@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Entity(tableName = "list_story")
 data class DetailStory(
     @SerializedName("id")
     val id: String,

@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nyra.storyapp.R
-import com.nyra.storyapp.data.remot.ApiResponse
+import com.nyra.storyapp.data.remot.story.ServiceStory
+import com.nyra.storyapp.data.repository.RepositoryStory
+import com.nyra.storyapp.data.source.DataSourceStory
 import com.nyra.storyapp.databinding.ActivityMainBinding
 import com.nyra.storyapp.point.maps.MapsActivity
 import com.nyra.storyapp.point.profil.ProfileActivity
@@ -20,53 +22,85 @@ import com.nyra.storyapp.point.story.AdapterStory
 import com.nyra.storyapp.point.story.StoryViewModel
 import com.nyra.storyapp.point.story.add.StoryAddActivity
 import com.nyra.storyapp.utils.ManagerSession
-import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val viewModelStory: StoryViewModel by viewModels()
-    
+    private lateinit var viewModelStory: StoryViewModel
+
+    //private val viewModelStory: StoryViewModel by viewModels()
+
     private var _activityMainBinding: ActivityMainBinding? = null
     private val binding get() = _activityMainBinding!!
-    
+
     private lateinit var pref: ManagerSession
     private var token: String? = null
 
-    private lateinit var adapter: AdapterStory
-    
+    private lateinit var adapterStory: AdapterStory
+    //private lateinit var listStory: List<DetailStory>
+    private lateinit var serviceStory: ServiceStory
+    private lateinit var dataSourceStory: DataSourceStory
+
     companion object {
         fun start(context: Context) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)
         }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(_activityMainBinding?.root)
         pref = ManagerSession(this)
         token = pref.getToken
-        
+
         actionInit()
         uiInit()
-        
-        getAllStory("Bearer $token")
 
-        /*val adapter = AdapterStory()
-        binding.rvStory.adapter = adapter.withLoadStateFooter(
-            footer = LoadingStateAdapter { adapter.retry() }
-        )*/
+        //getAllStory()
+
+        /*viewModelStory =
+            ViewModelProvider(
+                this,
+                ViewModelFactory(
+                    RepositoryStory(
+                        dataSourceStory,
+                        serviceStory,
+                        token.toString()
+                )
+            )
+        )[StoryViewModel::class.java]*/
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvStory.layoutManager = layoutManager
+
+        /*binding.rvStory.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = adapterStory
+        }*/
+
+        //getAllStory("Bearer $token")
+        adapterStory = AdapterStory()
+        binding.rvStory.adapter = adapterStory.withLoadStateFooter(
+            footer = LoadingStateAdapter {
+                adapterStory.retry()
+            }
+        )
+
+        token?.let {
+            viewModelStory.getAllStory(it).observe(this, {
+                adapterStory.submitData(lifecycle, it)
+            })
+        }
     }
 
-    private fun getAllStory(token: String) {
-        viewModelStory.getAllStory(token).observe(this) { response ->
+   private fun getAllStory(token: String) {
+        /*viewModelStory.getAllStory(token).observe(this) {
+                response ->
             when (response) {
                 is ApiResponse.Loading -> isLoading(true)
                 is ApiResponse.Success -> {
                     isLoading(false)
-                    val adapter = AdapterStory()
+                    val adapter = AdapterStory(response.data.listStory)
                     //binding.rvStory.adapter = adapter
                     binding.rvStory.adapter = adapter.withLoadStateFooter(
                         footer = LoadingStateAdapter { adapter.retry() }
@@ -77,8 +111,17 @@ class MainActivity : AppCompatActivity() {
                     Timber.e(getString(string.message_unknown_state))
                 }
             }
+        }*/
 
-        }
+        /*val adapter = AdapterStory()
+        //binding.rvStory.adapter = adapter
+        binding.rvStory.adapter = adapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { adapter.retry() }
+        )
+
+        viewModelStory.story.observe(this, {
+            adapter.submitData(lifecycle, it)
+        })*/
     }
 
     private fun uiInit() {
@@ -95,7 +138,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isLoading(loading: Boolean) {
+    /*private fun isLoading(loading: Boolean) {
         if (loading) {
             binding.apply {
                 loadingRefresh.visibility = View.VISIBLE
@@ -109,12 +152,12 @@ class MainActivity : AppCompatActivity() {
                 loadingRefresh.visibility = View.INVISIBLE
             }
         }
-    }
+    }*/
 
-    override fun onResume() {
+    /*override fun onResume() {
         super.onResume()
         getAllStory("Bearer $token")
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

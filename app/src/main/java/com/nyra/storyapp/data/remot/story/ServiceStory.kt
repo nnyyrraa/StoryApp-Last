@@ -5,9 +5,16 @@ import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ServiceStory {
-    @GET("stories")
+    /*@GET("stories")
     suspend fun getAllStory(
         @Header("Authorization") token: String
+    ): GetStoryResponse*/
+
+    @GET("stories")
+    suspend fun getAllStories(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int,
+        @Query("size") size: Int
     ): GetStoryResponse
 
     @Multipart

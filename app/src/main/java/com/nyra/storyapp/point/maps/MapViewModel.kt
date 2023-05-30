@@ -11,8 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
-class MapViewModel @Inject constructor(private val repositoryStory: RepositoryStory): ViewModel() {
+class MapViewModel(private val repositoryStory: RepositoryStory): ViewModel() {
     fun getLocationWithStory(token: String): LiveData<ApiResponse<GetStoryResponse>> {
         val result = MutableLiveData<ApiResponse<GetStoryResponse>>()
         viewModelScope.launch {

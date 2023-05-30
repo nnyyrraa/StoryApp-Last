@@ -10,6 +10,7 @@ import androidx.core.util.Pair
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nyra.storyapp.point.story.detail.StoryDetailActivity
 import com.nyra.storyapp.data.model.DetailStory
 import com.nyra.storyapp.databinding.ItemStoryBinding
@@ -17,8 +18,9 @@ import com.nyra.storyapp.utils.ValConst
 import com.nyra.storyapp.utils.ext.setImageUrl
 import com.nyra.storyapp.utils.ext.timeStamptoString
 
-class AdapterStory : PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder>(DiffCallback) {
-    private lateinit var listStory: DetailStory
+class AdapterStory(/*private val listStory: List<DetailStory>*/) : PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder>(DiffCallback) {
+    private lateinit var callbackItem: OnItemClickCallback
+    private val data = ArrayList<DetailStory>()
 
     companion object {
         val DiffCallback = object : DiffUtil.ItemCallback<DetailStory>() {
@@ -38,13 +40,23 @@ class AdapterStory : PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder
     }
 
     override fun onBindViewHolder(holder: AdapterStory.StoryViewHolder, position: Int) {
-        listStory.let { story ->
-            holder.bind(holder.itemView.context, story)
+        /*listStory[position].let { story ->
+            holder.bind(story)
+        }*/
+
+        val story = getItem(position)
+        if(story != null){
+            holder.bind(story)
+            holder.itemView.setOnClickListener {
+                callbackItem.onItemClicked(story)
+            }
         }
     }
 
+    //override fun getItemCount() = data.size
+
     inner class StoryViewHolder(private val binding: ItemStoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(context: Context, stories: DetailStory) {
+        fun bind(stories: DetailStory) {
             with(binding) {
                 nameStory.text = stories.name
                 tvDescStory.text = stories.description
@@ -64,6 +76,21 @@ class AdapterStory : PagingDataAdapter<DetailStory, AdapterStory.StoryViewHolder
                 )
                 itemView.context.startActivity(intent, compatOptions.toBundle())
             }
+            /*binding.apply {
+                Glide.with(this.root.context)
+                    .load(stories.photoUrl)
+                    .centerCrop()
+                    .into(imageStory)
+                nameStory.text = stories.name
+            }*/
         }
+    }
+
+    interface OnItemClickCallback{
+        fun onItemClicked(story: DetailStory)
+    }
+
+    fun clickCallback(onItemClickCallback: OnItemClickCallback){
+        this.callbackItem = onItemClickCallback
     }
 }
