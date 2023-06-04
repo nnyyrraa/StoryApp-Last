@@ -77,4 +77,10 @@
     //LoadingPaging3
     <string name="data_notLoaded">Data not loaded</string>
     <string name="retry">Retry</string>
+
+    //Choose Maps
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

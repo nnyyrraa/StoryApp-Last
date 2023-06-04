@@ -79,4 +79,9 @@
     <string name="data_notLoaded">Data tidak loading</string>
     <string name="retry">Coba lagi</string>
 
+    //Choose Maps
+    <string name="normal_type">Normal</string>
+    <string name="satellite_type">Satellite</string>
+    <string name="terrain_type">Terrain</string>
+    <string name="hybrid_type">Hybrid</string>
 </resources>

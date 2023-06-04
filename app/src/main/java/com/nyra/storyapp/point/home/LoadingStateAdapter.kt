@@ -10,8 +10,7 @@ import com.nyra.storyapp.databinding.CardStoriesLoadingBinding
 
 class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<LoadingStateAdapter.LoadingStateViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): LoadingStateViewHolder {
-        val binding =
-            CardStoriesLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CardStoriesLoadingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LoadingStateViewHolder(binding, retry)
     }
 
@@ -19,12 +18,8 @@ class LoadingStateAdapter(private val retry: () -> Unit) : LoadStateAdapter<Load
         holder.bind(loadState)
     }
 
-    class LoadingStateViewHolder(
-        private val binding: CardStoriesLoadingBinding,
-        retry: () -> Unit
-    ) :
+    class LoadingStateViewHolder(private val binding: CardStoriesLoadingBinding, retry: () -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
-
         init {
             binding.retryBt.setOnClickListener { retry.invoke() }
         }

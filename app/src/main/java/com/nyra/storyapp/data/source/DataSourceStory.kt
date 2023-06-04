@@ -15,31 +15,11 @@ import okhttp3.RequestBody
 import javax.inject.Inject
 import javax.inject.Singleton
 
-class DataSourceStory(private val serviceStory: ServiceStory, private val token: String) : PagingSource<Int, DetailStory>() {
+@Singleton
+class DataSourceStory @Inject constructor(private val serviceStory: ServiceStory) : PagingSource<Int, DetailStory>() {
     private companion object {
         const val INITIAL_PAGE_INDEX = 1
     }
-
-    /*suspend fun getAllStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
-        return flow {
-            try {
-                emit(ApiResponse.Loading)
-                val response = serviceStory.getAllStory(token)
-                if (!response.error) {
-                    daoStory.deleteAllStory()
-                    val listStory = response.listStory.map {
-                        storyToEntityStory(it)
-                    }
-                    daoStory.insertStory(listStory)
-                    emit(ApiResponse.Success(response))
-                } else {
-                    emit(ApiResponse.Error(response.message))
-                }
-            } catch (ex: Exception) {
-                emit(ApiResponse.Error(ex.message.toString()))
-            }
-        }
-    }*/
 
     override fun getRefreshKey(state: PagingState<Int, DetailStory>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -51,8 +31,7 @@ class DataSourceStory(private val serviceStory: ServiceStory, private val token:
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, DetailStory> {
         return try {
             val position = params.key ?: INITIAL_PAGE_INDEX
-            val responseData = serviceStory.getAllStories("bearer $token", position, params.loadSize)
-            //val responseData = serviceStory.getAllStories(position, params.loadSize)
+            val responseData = serviceStory.getAllStories(position, params.loadSize)
 
             LoadResult.Page(
                 data = responseData.listStory ?: emptyList(),
@@ -64,11 +43,11 @@ class DataSourceStory(private val serviceStory: ServiceStory, private val token:
         }
     }
 
-    suspend fun addNewStory(token: String, file: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<AddStoryResponse>> {
+    suspend fun addNewStory(file: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<AddStoryResponse>> {
         return flow {
             try {
                 emit(ApiResponse.Loading)
-                val response = serviceStory.addNewStory(token, file, description)
+                val response = serviceStory.addNewStory(file, description)
                 if (!response.error) {
                     emit(ApiResponse.Success(response))
                 } else {
@@ -80,11 +59,11 @@ class DataSourceStory(private val serviceStory: ServiceStory, private val token:
         }
     }
 
-    suspend fun getLocationWithStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
+    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
         return flow {
             try {
                 emit(ApiResponse.Loading)
-                val response = serviceStory.getLocationWithStory(token, 1)
+                val response = serviceStory.getLocationWithStory(1)
                 emit(ApiResponse.Success(response))
             } catch (ex: Exception) {
                 Log.d("StoryViewModel", "getLocationWithStory: ${ex.message.toString()} ")

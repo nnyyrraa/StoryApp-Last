@@ -1,7 +1,11 @@
 package com.nyra.storyapp.point.maps
 
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -10,6 +14,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.nyra.storyapp.R
 import com.nyra.storyapp.data.model.DetailStory
@@ -28,6 +33,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var pref: ManagerSession
     private var token: String? = null
+
+    companion object {
+        private const val TAG = "MapsActivity"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +59,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         pref = ManagerSession(this)
         token = pref.getToken
 
-        getLocationWithStory("Bearer $token")
+        getLocationWithStory()
+
+        setMapStyle()
     }
 
-    private fun getLocationWithStory(token: String) {
-        viewModelMap.getLocationWithStory(token).observe(this) { response ->
+    private fun setMapStyle() {
+        try {
+            val success =
+                mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style))
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.")
+            }
+        } catch (exception: Resources.NotFoundException) {
+            Log.e(TAG, "Can't find style. Error: ", exception)
+        }
+    }
+
+    private fun getLocationWithStory() {
+        viewModelMap.getLocationWithStory().observe(this) { response ->
             if (response != null) {
                 when (response) {
                     is ApiResponse.Loading -> {
@@ -93,5 +116,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 30
             )
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.map_options, menu)
+        return true
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.normal_type -> {
+                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
+                true
+            }
+            R.id.satellite_type -> {
+                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                true
+            }
+            R.id.terrain_type -> {
+                mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                true
+            }
+            R.id.hybrid_type -> {
+                mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+        }
     }
 }

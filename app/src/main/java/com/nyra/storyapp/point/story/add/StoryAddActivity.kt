@@ -146,7 +146,7 @@ class StoryAddActivity : AppCompatActivity() {
                     fileImg.name,
                     imgFileRequest
                 )
-                viewModelStory.addNewStory("Bearer $token", multipartImg, typedMediaDesc).observe(this) { response ->
+                viewModelStory.addNewStory(multipartImg, typedMediaDesc).observe(this) { response ->
                     when (response) {
                         is ApiResponse.Loading -> {
                             showLoading(true)

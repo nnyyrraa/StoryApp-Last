@@ -14,29 +14,27 @@ import com.nyra.storyapp.data.source.DataSourceStory
 import kotlinx.coroutines.flow.Flow
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import javax.inject.Inject
 import javax.inject.Singleton
 
-class RepositoryStory(private val dataSourceStory: DataSourceStory, private val serviceStory: ServiceStory) {
-    /*suspend fun getAllStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
-        return dataSourceStory.getAllStory(token).flowOn(Dispatchers.IO)
-    }*/
-
-    suspend fun addNewStory(token: String, file: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<AddStoryResponse>> {
-        return dataSourceStory.addNewStory(token, file, description)
-    }
-
-    suspend fun getLocationWithStory(token: String): Flow<ApiResponse<GetStoryResponse>> {
-        return dataSourceStory.getLocationWithStory(token)
-    }
-
-    fun getAllStories(token: String): LiveData<PagingData<DetailStory>> {
+@Singleton
+class RepositoryStory @Inject constructor(private val dataSourceStory: DataSourceStory, private val serviceStory: ServiceStory) {
+    fun getAllStories(): LiveData<PagingData<DetailStory>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
             pagingSourceFactory = {
-                DataSourceStory(serviceStory, token)
+                DataSourceStory(serviceStory)
             }
         ).liveData
+    }
+
+    suspend fun addNewStory(file: MultipartBody.Part, description: RequestBody): Flow<ApiResponse<AddStoryResponse>> {
+        return dataSourceStory.addNewStory(file, description)
+    }
+
+    suspend fun getLocationWithStory(): Flow<ApiResponse<GetStoryResponse>> {
+        return dataSourceStory.getLocationWithStory()
     }
 }
